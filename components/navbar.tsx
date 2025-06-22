@@ -1,33 +1,49 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { Menu, X, Sparkles } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [scrollDirection, setScrollDirection] = useState("up")
+  const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      const currentScrollY = window.scrollY
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setScrollDirection("down")
+      } else {
+        setScrollDirection("up")
+      }
+
+      setScrolled(currentScrollY > 50)
+      setLastScrollY(currentScrollY)
     }
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [lastScrollY])
 
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+      animate={{
+        y: scrollDirection === "down" ? -100 : 0,
+        opacity: scrollDirection === "down" ? 0 : 1,
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-slate-900/90 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20"
-          : "bg-slate-900/20 backdrop-blur-md"
+          ? "bg-slate-900/95 backdrop-blur-xl border-b border-cyan-500/30 shadow-2xl shadow-cyan-500/20"
+          : "bg-slate-900/80 backdrop-blur-md"
       }`}
     >
       {/* Sparkly background overlay */}
@@ -54,20 +70,25 @@ export default function Navbar() {
           </motion.div>
         </Link>
 
-        <nav className="hidden gap-12 md:flex">
-          {["About", "Products", "Partners", "Contact"].map((item, index) => (
+        <nav className="hidden gap-8 md:flex items-center">
+          {[
+            { name: "About", href: "/about" },
+            { name: "Products", href: "/products" },
+            { name: "Partners", href: "/wanttopartners" },
+            { name: "Contact", href: "/contact" },
+          ].map((item, index) => (
             <motion.div
-              key={item}
+              key={item.name}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="relative"
             >
               <Link
-                href={`/${item.toLowerCase()}`}
-                className="text-lg font-medium text-slate-200 hover:text-cyan-300 transition-all duration-300 relative group px-4 py-2"
+                href={item.href}
+                className="text-lg font-medium text-slate-200 hover:text-cyan-300 transition-all duration-300 relative group px-4 py-2 whitespace-nowrap"
               >
-                {item}
+                {item.name}
                 {/* Glowing underline */}
                 <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-400 group-hover:w-full transition-all duration-500 shadow-lg shadow-cyan-500/50 rounded-full"></span>
                 {/* Sparkly glow effect */}
@@ -111,19 +132,24 @@ export default function Navbar() {
             className="md:hidden bg-slate-900/95 backdrop-blur-xl border-t border-cyan-500/30 shadow-2xl shadow-cyan-500/20"
           >
             <nav className="flex flex-col space-y-6 p-8">
-              {["About", "Products", "Partners", "Contact"].map((item, index) => (
+              {[
+                { name: "About", href: "/about" },
+                { name: "Products", href: "/products" },
+                { name: "Partners", href: "/wanttopartners" },
+                { name: "Contact", href: "/contact" },
+              ].map((item, index) => (
                 <motion.div
-                  key={item}
+                  key={item.name}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
                   <Link
-                    href={`/${item.toLowerCase()}`}
+                    href={item.href}
                     className="text-xl font-medium text-slate-200 hover:text-cyan-400 transition-colors duration-300 block py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </motion.div>
               ))}

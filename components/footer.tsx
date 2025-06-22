@@ -7,7 +7,7 @@ import { Facebook, Twitter, Linkedin, Mail, Github } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-blue-950 to-cyan-950 border-t border-cyan-500/20">
+    <footer className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-black border-t border-cyan-500/20">
       {/* Radiant glow effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
@@ -34,7 +34,7 @@ export default function Footer() {
                 />
               </motion.div>
             </Link>
-            <p className="text-slate-300 leading-relaxed">
+            <p className="text-slate-400 leading-relaxed">
               Pioneering the future of healthcare collaboration, education, and productivity with radiant innovation.
             </p>
             <div className="flex space-x-4">
@@ -50,7 +50,7 @@ export default function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 p-2 rounded-full hover:bg-cyan-500/10"
+                  className="text-slate-500 hover:text-cyan-400 transition-colors duration-300 p-2 rounded-full hover:bg-cyan-500/10"
                 >
                   <social.icon className="h-5 w-5" />
                 </motion.a>
@@ -107,7 +107,7 @@ export default function Footer() {
                   >
                     <Link
                       href={link.href}
-                      className="text-slate-300 hover:text-cyan-400 transition-colors duration-300 relative group"
+                      className="text-slate-400 hover:text-cyan-400 transition-colors duration-300 relative group"
                     >
                       {link.name}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300 shadow-lg shadow-cyan-500/50"></span>
@@ -126,7 +126,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="mt-16 pt-8 border-t border-cyan-500/20 flex flex-col md:flex-row justify-between items-center"
         >
-          <p className="text-slate-400">© {new Date().getFullYear()} SeeDataMD. All rights reserved.</p>
+          <p className="text-slate-500">© {new Date().getFullYear()} SeeDataMD. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item, index) => (
               <motion.div
@@ -138,7 +138,7 @@ export default function Footer() {
               >
                 <Link
                   href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="text-slate-400 hover:text-cyan-400 transition-colors duration-300"
+                  className="text-slate-500 hover:text-cyan-400 transition-colors duration-300"
                 >
                   {item}
                 </Link>
