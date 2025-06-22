@@ -74,7 +74,7 @@ export default function Navbar() {
           {[
             { name: "About", href: "/about" },
             { name: "Products", href: "/products" },
-            { name: "Partners", href: "/wanttopartners" },
+            { name: "Partners", href: "/partners" },
             { name: "Contact", href: "/contact" },
           ].map((item, index) => (
             <motion.div
@@ -135,7 +135,7 @@ export default function Navbar() {
               {[
                 { name: "About", href: "/about" },
                 { name: "Products", href: "/products" },
-                { name: "Partners", href: "/wanttopartners" },
+                { name: "Partners", href: "/partners" },
                 { name: "Contact", href: "/contact" },
               ].map((item, index) => (
                 <motion.div
